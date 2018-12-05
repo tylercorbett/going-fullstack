@@ -1,37 +1,52 @@
 const express = require('express');
 const app = express();
-const shortid = require('shortid');
+const morgan = require('morgan');
+const pg = require('pg');
 
-const fs = require('fs');
-
-function readData() {
-  const data = fs.readFileSync('./data/players.json', 'utf8');
-  return JSON.parse(data);
-}
-
-function saveData(players) {
-  const json = JSON.stringify(players, true, 2);
-  fs.writeFileSync('./data/players.json', json);
-}
+app.use(morgan('dev'));
 
 app.use(express.json());
 
+const Client = pg.Client;
+const dbUrl = 'postgres://localhost:5432/team';
+const client = new Client(dbUrl);
+client.connect();
+
 app.get('/api/players', (req, res) => {
-  const players = readData();
-  res.json(players);
+  client.query(`
+    SELECT * FROM players;
+  `)
+    .then(results => {
+      res.json(results.rows);
+    });
+});
+
+app.get('/api/players/:id', (req, res) => {
+  client.query(`
+    SELECT * FROM players WHERE id = $1;
+  `,
+  [req.params.id])
+    .then(result => {
+      res.json(result.rows[0]);
+    });
 });
 
 app.post('/api/players', (req, res) => {
-  const players = readData();
-  const player = req.body;
-  player.id = shortid.generate();
-  players.push(player);
-  saveData(players);
-  res.json(player);
+  const body = req.body;
+
+  client.query(`
+    INSERT INTO players (name, number, is_starter)
+    VALUES($1, $2, $3)
+    RETURNING id, name, number, is_starter as "isStarter";
+  `,
+  [body.name, body.number, body.isStarter])
+    .then(result => {
+      res.json(result.rows[0]);
+    });
 });
 
 const PORT = 3000;
 
-app.listen(PORT, ()=> {
+app.listen(PORT, () => {
   console.log('server app started on port', PORT);
 });

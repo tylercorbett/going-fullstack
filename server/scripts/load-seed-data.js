@@ -11,9 +11,9 @@ client.connect()
       players.map(player => {
         return client.query(`
                     INSERT INTO players (name, number, is_starter)
-                    VALUES ($1, $2, $3, $4);
-                `),
-        [player.name, player.number, player.is_starter];
+                    VALUES ($1, $2, $3);
+                `,
+        [player.name, player.number, player.is_starter]);
       })
     );
   })
@@ -21,6 +21,6 @@ client.connect()
     () => console.log('seed data load complete'),
     err => console.log(err)
   )
-  .then (() => {
+  .then(() => {
     client.end();
   });
