@@ -6,4 +6,4 @@
       "test:server": "cd server && npm i && npm test && cd ..",
       "test": "npm run test:app && npm run test:server"
     }
-  }
+}
