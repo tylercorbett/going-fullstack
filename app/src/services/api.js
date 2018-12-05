@@ -12,5 +12,9 @@ export default {
       body: JSON.stringify(player)
     })
       .then(response => response.json());
+  },
+  getPlayer(id) {
+    return fetch(`/api/players/${id}`)
+      .then(response => response.json());
   }
 };

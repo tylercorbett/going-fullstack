@@ -2,15 +2,16 @@
         <section class="players">
                 <h2>Players</h2>
                 <AddPlayer :onAdd="handleAdd"/>
-                <ul v-if="players">
-                        <li v-for="player in players" :key="player.id">{{player.name}} is number {{player.number}}. Starter: {{player.isStarter}}</li>
-                </ul>
+                <PlayerList
+                :players="players"
+                />
         </section>
 </template>
 
 <script>
 import api from '../../services/api';
 import AddPlayer from './AddPlayer';
+import PlayerList from './PlayerList';
 
 export default {
   data() {
@@ -20,7 +21,8 @@ export default {
     };
   },
   components: {
-    AddPlayer
+    AddPlayer,
+    PlayerList
   },
   created() {
     api.getPlayers()
