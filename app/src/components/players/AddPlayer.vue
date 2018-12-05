@@ -1,13 +1,14 @@
 <template>
     <form @submit.prevent="handleSubmit">
+        <h3>Add Player</h3>
         <label> Name:
-            <input v-model="player.name" require>
+            <input v-model="player.name" required> 
         </label>
         <label> Number:
-            <input v-model="player.number" require>
+            <input v-model="player.number" required>
         </label>
-        <label> Is a starter?:
-            <input type="checkbox" v-model="player.isStarter" require>
+        <label > Is a starter?:
+            <input type="checkbox" v-model="player.isStarter">
         </label>
         <button>Add</button>
     </form>
@@ -21,7 +22,9 @@ export default {
   data() {
     return {
       player: {
-        name: ''
+        name: '',
+        number: '',
+        isStarter: ''
       }
     };
   },
