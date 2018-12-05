@@ -22,7 +22,7 @@ label {
 ul {
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(2, 1fr)
+  grid-template-columns: repeat(2, 1fr);
 }
 li {
   padding: 20px;
