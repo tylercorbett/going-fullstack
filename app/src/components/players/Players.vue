@@ -3,7 +3,7 @@
                 <h2>Players</h2>
                 <AddPlayer :onAdd="handleAdd"/>
                 <ul v-if="players">
-                        <li v-for="player in players" :key="player.id">
+                        <li v-for="player in players" :key="player.id">{{player.name}} is number {{player.number}}. Starter: {{player.isStarter}}</li>
                 </ul>
         </section>
 </template>
