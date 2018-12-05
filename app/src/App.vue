@@ -1,12 +1,6 @@
 <template>
-  <h1>App</h1>
+  <RouterView></RouterView>
 </template>
-
-<script>
-export default {
-
-};
-</script>
 
 <style>
 
