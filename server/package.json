@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "npm lint",
+    "test": "exit 0",
     "start": "nodemon server.js"
   },
   "author": "",
