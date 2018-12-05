@@ -1,27 +1,9 @@
 {
-  "name": "app-server",
-  "version": "1.0.0",
-  "scripts": {
-    "test:app": "cd app && npm i && npm test && cd ..",
-    "test:server": "cd server && npm i && npm test && cd ..",
-    "test": "npm run test:app && npm run test:server"
-  },
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tylercorbett/going-fullstack.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/tylercorbett/going-fullstack/issues"
-  },
-  "homepage": "https://github.com/tylercorbett/going-fullstack#readme",
-  "description": "",
-  "devDependencies": {
-    "eslint": "^5.9.0"
-  },
-  "dependencies": {
-    "nodemon": "^1.18.7"
+    "name": "app-server",
+    "version": "1.0.0",
+    "scripts": {
+      "test:app": "cd app && npm i && npm test && cd ..",
+      "test:server": "cd server && npm i && npm test && cd ..",
+      "test": "npm run test:app && npm run test:server"
+    }
   }
-}
