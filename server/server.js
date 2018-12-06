@@ -1,15 +1,12 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-const pg = require('pg');
+const client = require('./db-client.js');
 
 app.use(morgan('dev'));
 
 app.use(express.json());
 
-const Client = pg.Client;
-const dbUrl = 'postgres://localhost:5432/team';
-const client = new Client(dbUrl);
 client.connect();
 
 app.get('/api/players', (req, res) => {
