@@ -7,8 +7,6 @@ app.use(morgan('dev'));
 
 app.use(express.json());
 
-client.connect();
-
 app.get('/api/players', (req, res) => {
   client.query(`
     SELECT * FROM players;
