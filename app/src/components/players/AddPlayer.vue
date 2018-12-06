@@ -24,7 +24,7 @@ export default {
       player: {
         name: '',
         number: '',
-        isStarter: ''
+        isStarter: false
       }
     };
   },
