@@ -1,18 +1,39 @@
 <template>
     <section>
         <h2> Position Admin</h2>
-        <!-- <ul>
+        <ul>
             <li v-for="position in positions"
                 :key="position.id">
                 {{position.name}}
             </li>
-        </ul> -->
+        </ul>
     </section>
 </template>
 
 <script>
-export default {
+import api from '../../services/api';
 
+export default {
+  data() {
+    return {
+      positions: null,
+      positionName: ''
+    };
+  },
+  created() {
+    api.getPositions()
+      .then(positions => {
+        this.positions = positions;
+      });
+  },
+  methods: {
+    handleAdd() {
+      api.addPosition({ name: this.positionName })
+        .then(() => {
+          this.positionName = '';
+        });
+    }
+  }
 };
 </script>
 
