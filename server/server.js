@@ -18,13 +18,14 @@ app.get('/api/players', (req, res) => {
 
 app.get('/api/positions', (req, res) => {
   client.query(`
-    SELECT id, name, 
+    SELECT id, name, type
+    FROM positions
+    ORDER BY name;
   `)
-})
-
-
-
-
+    .then(result => {
+      res.json(result.rows);
+    });
+});
 
 app.get('/api/players/:id', (req, res) => {
   client.query(`
@@ -40,11 +41,27 @@ app.post('/api/players', (req, res) => {
   const body = req.body;
 
   client.query(`
-    INSERT INTO players (name, number, is_starter)
+    INSERT INTO player (name, number, is_starter)
     VALUES($1, $2, $3)
-    RETURNING id, name, number, is_starter as "isStarter";
+    RETURNING id;
   `,
   [body.name, body.number, body.isStarter])
+    .then(result => {
+      const id = result.rows[0].id;
+      return client.query(`
+        SELECT
+          player.id,
+          player.name as name,
+          is_starter as "isStarter",
+          position.id as "positionId",
+          position.name as position
+        FROM player
+        JOIN position
+        ON player.position_id = position.id
+        WHERE player.id = $1;
+      `,
+      [id]);
+    })
     .then(result => {
       res.json(result.rows[0]);
     });
