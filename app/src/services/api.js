@@ -16,5 +16,9 @@ export default {
   getPlayer(id) {
     return fetch(`/api/players/${id}`)
       .then(response => response.json());
+  },
+  getPositions() {
+    return fetch('/api/positions')
+      .then(response => response.json());
   }
 };

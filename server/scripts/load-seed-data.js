@@ -1,15 +1,33 @@
 const client = require('../db-client');
 const players = require('./players.json');
+const positions = require('./positions');
 
 Promise.all(
-  players.map(player => {
+  positions.map(position => {
     return client.query(`
-      INSERT INTO players (name, number, is_starter)
-      VALUES ($1, $2, $3);
+        INSERT INTO positions (name, type)
+        VALUES ($1, $2);
       `,
-    [player.name, player.number, player.is_starter]);
+    [position.name, position.type]);
   })
 )
+  .then(() => {
+    return Promise.all(
+      players.map(player => {
+        return client.query(`
+          INSERT INTO players (name, position_id, number, is_starter)
+          SELECT
+            $1 as name,
+            id as position_id,
+            $2 as number,
+            $3 as is_starter
+          FROM positions
+          WHERE type = $4
+          `,
+        [player.name, player.number, player.is_starter, player.position]);
+      })
+    );
+  })
   .then(
     () => console.log('seed data load complete'),
     err => console.log(err)

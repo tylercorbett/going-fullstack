@@ -16,6 +16,16 @@ app.get('/api/players', (req, res) => {
     });
 });
 
+app.get('/api/positions', (req, res) => {
+  client.query(`
+    SELECT id, name, 
+  `)
+})
+
+
+
+
+
 app.get('/api/players/:id', (req, res) => {
   client.query(`
     SELECT * FROM players WHERE id = $1;

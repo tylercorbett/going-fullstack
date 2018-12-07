@@ -3,18 +3,18 @@
     "name": "Jusuf Nurkic",
     "number": 27,
     "is_starter": true,
-    "id": "gsQ5cAvGN"
+    "position": "center"
   },
   {
     "name": "Damian Lillard",
     "number": 0,
     "is_starter": true,
-    "id": "v37-Jcbos"
+    "position": "point"
   },
   {
     "name": "C.J. McCollum",
     "number": 3,
     "is_starter": true,
-    "id": "QWorirIxi"
+    "position": "center"
   }
 ]
