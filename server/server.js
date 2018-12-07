@@ -9,10 +9,19 @@ app.use(express.json());
 
 app.get('/api/players', (req, res) => {
   client.query(`
-    SELECT * FROM players;
+    SELECT
+      players.id,
+      players.name as name,
+      is_starter as "isStarter",
+      position_id as "positionsId",
+      positions.name as positions
+    FROM players
+    JOIN positions
+    ON players.position_id = positions.id
+    ORDER BY players.name DESC;
   `)
-    .then(results => {
-      res.json(results.rows);
+    .then(result => {
+      res.json(result.rows);
     });
 });
 
