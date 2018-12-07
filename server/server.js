@@ -48,29 +48,20 @@ app.get('/api/players/:id', (req, res) => {
 
 app.post('/api/players', (req, res) => {
   const body = req.body;
+  console.log('body, \n\n\n', body);
 
   client.query(`
-    INSERT INTO player (name, number, is_starter)
-    VALUES($1, $2, $3)
-    RETURNING id;
+    INSERT INTO players (name, position_id, number, is_starter)
+    VALUES($1, $2, $3, $4)
+    RETURNING 
+      id,
+      name,
+      position_id as "positionId",
+      number,
+      is_starter
   `,
-  [body.name, body.number, body.isStarter])
-    .then(result => {
-      const id = result.rows[0].id;
-      return client.query(`
-        SELECT
-          player.id,
-          player.name as name,
-          is_starter as "isStarter",
-          position.id as "positionId",
-          position.name as position
-        FROM player
-        JOIN position
-        ON player.position_id = position.id
-        WHERE player.id = $1;
-      `,
-      [id]);
-    })
+  [body.name, body.positionId, body.number, body.isStarter])
+    
     .then(result => {
       res.json(result.rows[0]);
     });
