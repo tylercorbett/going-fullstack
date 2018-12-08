@@ -7,7 +7,10 @@
         <h4 v-if="player.is_starter">
             They're a starter.
         </h4>
-        <EditPlayer/>
+        <EditPlayer
+        :player="player"
+        :onEdit="handleEdit"
+        />
     </section>
 </template>
 
@@ -29,6 +32,14 @@ export default {
   },
   components: {
     EditPlayer
+  },
+  methods: {
+    handleEdit(player) {
+      return api.updatePlayer(player)
+        .then(updated => {
+          this.player = updated;
+        });
+    }
   }
 };
 </script>

@@ -47,5 +47,12 @@ export default {
           return 0;
         });
       });
+  },
+  updatePlayer(player) {
+    return fetch(
+      `/api/players/${player.id}`,
+      getOptions('PUT', player)
+    )
+      .then(response => response.json());
   }
 };
