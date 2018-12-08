@@ -7,11 +7,13 @@
         <h4 v-if="player.is_starter">
             They're a starter.
         </h4>
+        <EditPlayer/>
     </section>
 </template>
 
 <script>
 import api from '../../services/api.js';
+import EditPlayer from './EditPlayer';
 
 export default {
   data() {
@@ -24,6 +26,9 @@ export default {
       .then(player => {
         this.player = player;
       });
+  },
+  components: {
+    EditPlayer
   }
 };
 </script>

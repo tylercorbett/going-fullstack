@@ -16,13 +16,7 @@ export default {
       .then(response => response.json());
   },
   addPlayer(player) {
-    return fetch('/api/players', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(player)
-    })
+    return fetch('/api/players', getOptions('POST', player))
       .then(response => response.json());
   },
   getPlayer(id) {
@@ -30,8 +24,17 @@ export default {
       .then(response => response.json());
   },
   getPositions() {
-    return fetch('/api/positions')
-      .then(response => response.json());
+    if(positions) {
+      return Promise.resolve(positions);
+    }
+    else {
+      return fetch('/api/positions')
+        .then(response => response.json())
+        .then(fetchedPositions => {
+          positions = fetchedPositions;
+          return positions;
+        });
+    }
   },
   addPosition(position) {
     return fetch('/api/positions', getOptions('POST', position))

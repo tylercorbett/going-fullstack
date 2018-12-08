@@ -1,9 +1,6 @@
 <template>
         <section class="players">
                 <h2>Players</h2>
-                <h2 id="positionsLink">
-                  <RouterLink to="/positions">Positions Admin</RouterLink>
-                </h2>
                 <AddPlayer :onAdd="handleAdd"/>
                 <PlayerList
                 :players="players"

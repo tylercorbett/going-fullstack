@@ -7,6 +7,10 @@
                 {{position.name}}
             </li>
         </ul>
+        <form @submit.prevent="handleAdd">
+            <input v-model="positionName">
+            <button>Add</button>
+        </form>
     </section>
 </template>
 
