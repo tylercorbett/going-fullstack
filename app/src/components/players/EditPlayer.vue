@@ -2,13 +2,18 @@
     <span>
         <button @click="show = true">Edit</button>
         <Modal v-if="show" :onClose="() => show = false">
-
+            <PlayerForm
+            :onSubmit="handleEdit"
+            :playerToEdit="player"
+            label="Update"
+            />
         </Modal> 
     </span>
 </template>
 
 <script>
 import Modal from '../shared/Modal';
+import PlayerForm from './PlayerForm';
 
 export default {
   props: {
@@ -16,7 +21,8 @@ export default {
     player: Object
   },
   components: {
-    Modal
+    Modal,
+    PlayerForm
   },
   data() {
     return {
