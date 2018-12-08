@@ -2,7 +2,7 @@
     <form @submit.prevent="onSubmit(player)">
         <p>
             <label>Name:</label>
-            <input v-focus v-model="player.name" require>
+            <input v-model="player.name" require>
         </p>
         <p>
             <label>Number:</label>
