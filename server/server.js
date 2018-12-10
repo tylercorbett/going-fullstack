@@ -67,6 +67,30 @@ app.post('/api/players', (req, res) => {
     });
 });
 
+app.put('/api/players/:id', (req, res) => {
+  const body = req.body;
+
+  client.query(`
+    UPDATE players
+    SET
+      name = $1,
+      position_id = $2,
+      number = $3,
+      is_starter = $4
+    WHERE id = $5
+    RETURNING
+      id,
+      name,
+      position_id as "positionId",
+      number,
+      is_starter;
+  `,
+  [body.name, body.positionId, body.number, body.is_starter, req.params.id])
+    .then(result => {
+      res.json(result.rows[0]);
+    });
+});
+
 const PORT = 3000;
 
 app.listen(PORT, () => {

@@ -10,7 +10,7 @@ client.query(`
       id SERIAL PRIMARY KEY,
       name VARCHAR(256) NOT NULL,
       number INTEGER NOT NULL,
-      is_starter BOOLEAN NOT NULL,
+      is_starter BOOLEAN DEFAULT FALSE,
       position_id INTEGER NOT NULL REFERENCES positions(id)
   );
 `)
